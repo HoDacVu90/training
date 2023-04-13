@@ -1,0 +1,4 @@
+PetClientData #class
+my.po #namespace
+pets java.util.List<my.po.client.Pet> #field
+pets PERSISTENT #fieldModifier

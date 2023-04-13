@@ -1,0 +1,6 @@
+OpenApiData #class
+my.po #namespace
+responseData String #field
+responseData PERSISTENT #fieldModifier
+pets java.util.List<rest.Pet> #field
+pets PERSISTENT #fieldModifier

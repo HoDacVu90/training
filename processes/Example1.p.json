@@ -1,0 +1,86 @@
+{
+  "format" : "10.0.0",
+  "id" : "1870DBD6B3238EF4",
+  "config" : {
+    "data" : "my.po.PromoteData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "case" : {
+          "attachToBusinessCase" : false
+        },
+        "task" : {
+          "responsible" : {
+            "role" : "SYSTEM"
+          }
+        },
+        "outLink" : "start.ivp",
+        "triggerEnabled" : true,
+        "wfuser" : "1",
+        "input" : {
+          "params" : [
+            { "name" : "a", "type" : "String" }
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 352, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : "ivy.log.info(\"This call by a trigger\");"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    }, {
+      "id" : "f5",
+      "type" : "RequestStart",
+      "name" : "start2.ivp",
+      "config" : {
+        "callSignature" : "start2",
+        "outLink" : "start2.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 112, "y" : 232 }
+      },
+      "connect" : { "id" : "f9", "to" : "f8" }
+    }, {
+      "id" : "f6",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 368, "y" : 232 }
+      }
+    }, {
+      "id" : "f8",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import my.po.services.PromoteService;",
+            "ivy.log.info(PromoteService.findById(\"4028cee38774b273018774d71b890009\").employees.size());"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 240, "y" : 232 }
+      },
+      "connect" : { "id" : "f7", "to" : "f6" }
+    } ]
+}

@@ -1,0 +1,37 @@
+Promote:
+  CREATE_PROMOTION: Create promotion
+  CRITICAL: Critical
+  DONE: Done
+  FEMALE: Female
+  HIGH: High
+  LOW: Low
+  MALE: Male
+  MEDIUM: Medium
+  OTHER: Other
+  WAITING_APPROVE: Waiting approve
+  form:
+    actions: Actions
+    active: Active
+    addEmployee: Add Employee
+    age: Age
+    approve: Approve
+    cancel: Cancel
+    cancelRequest: Cancel request
+    comment: Comment
+    creator: Creator
+    dateCreate: Date create
+    employeeInfoDetail: Employee Information Detail
+    feedback: Feed back
+    gender: Gender
+    information: Information
+    manager: Manager
+    managerFeedback: Manager feedback
+    name: Name
+    priority: Priority
+    promote: Promote
+    reject: Reject
+    save: Save
+    startingDate: Starting Date
+    submit: Submit
+    targetDate: Target Date
+    team: Team

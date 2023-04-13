@@ -1,0 +1,4 @@
+SubProcessData #class
+my.po #namespace
+teams java.util.List<String> #field
+teams PERSISTENT #fieldModifier

@@ -1,0 +1,4 @@
+showPetsData #class
+my.po.showPets #namespace
+pets java.util.List<rest.Pet> #field
+pets PERSISTENT #fieldModifier

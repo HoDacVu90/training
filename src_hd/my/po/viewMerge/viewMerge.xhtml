@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:ic="http://ivyteam.ch/jsf/component" xmlns:p="http://primefaces.org/ui"
+  xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+  <ui:composition template="/layouts/basic-10.xhtml">
+    <ui:define name="title">viewMerge</ui:define>
+    <ui:define name="content">
+
+      <h3>
+        This is an 
+        <a href="https://developer.axonivy.com/doc/">Html Dialog</a>
+        implemented with JSF and <a href="http://primefaces.org/">Primefaces</a> as widget library
+      </h3>
+
+      <h:form id="form">
+        <p:messages />
+        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" 
+          columnClasses="ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4, ui-g-12 ui-md-3 ui-lg-2, ui-g-12 ui-md-9 ui-lg-4">
+
+          <p:outputLabel for="addressZip" value="Zip" />
+          <p:inputText id="addressZip" value="#{data.address.zip}"></p:inputText>
+          
+          <p:outputLabel for="addressCity" value="City" />
+          <p:inputText id="addressCity" value="#{data.address.city}"></p:inputText>
+          
+          <p:outputLabel for="addressCountry" value="Country" />
+          <p:inputText id="addressCountry" value="#{data.address.country}"></p:inputText>
+
+        </p:panelGrid>
+        <br />
+        <div class="command-btns">
+          <p:commandLink id="cancel" actionListener="#{ivyWorkflowView.cancel()}" value="Cancel" />
+          <p:commandButton id="proceed" actionListener="#{logic.close}" value="Proceed" update="form" icon="pi pi-check" />
+        </div>
+      </h:form>
+
+    </ui:define>
+  </ui:composition>
+</h:body>
+
+</html>

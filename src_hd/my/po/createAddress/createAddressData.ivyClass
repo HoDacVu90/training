@@ -1,0 +1,6 @@
+createAddressData #class
+my.po.createAddress #namespace
+address my.po.Address #field
+address PERSISTENT #fieldModifier
+id String #field
+id PERSISTENT #fieldModifier

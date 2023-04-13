@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:body>
+	<p:dialog header="#{ivy.cms.co('/Promote/form/employeeInfoDetail')}" id="employeeDialog"
+		widgetVar="employeeDialog" modal="true" appendTo="@(body)" width="700">
+		<h:form id="detailForm">
+			<p:messages id="detailMessage" showIcon="false"/>
+			<div class="ui-g-12">
+				<div class="ui-g flex-align-center">
+					<div class="ui-g-4">
+						<p:outputLabel for="name" value="#{ivy.cms.co('/Promote/form/name')}"></p:outputLabel>
+					</div>
+					<div class="ui-g-8 ui-fluid">				
+					<p:inputText value="#{data.selectedEmployee.name}" required="true"
+						id="name" requiredMessage="Name is required" />					
+					</div>
+				</div>
+				<div class="ui-g flex-align-center">
+					<div class="ui-g-4">
+						<p:outputLabel for="age" value="#{ivy.cms.co('/Promote/form/age')}"></p:outputLabel>
+					</div>
+					<div class="ui-g-8 ui-fluid">
+						<p:inputText value="#{data.selectedEmployee.age}" required="true"
+					id="age" requiredMessage="Age is required" />
+					</div>
+				</div>
+				<div class="ui-g flex-align-center">
+					<div class="ui-g-4">
+						<p:outputLabel for="console" value="#{ivy.cms.co('/Promote/form/gender')}" />
+					</div>
+					<div class="ui-g-8 ui-fluid">
+						<p:selectOneRadio id="console" value="#{data.selectedEmployee.gender}" required="true"
+							unselectable="true">
+							<f:selectItems  value="#{data.genders}" var="title" itemValue="#{title}" itemLabel="#{title}" />
+						</p:selectOneRadio>
+					</div>
+				</div>
+				<div class="ui-g flex-align-center">
+					<div class="ui-g-4">
+						<p:outputLabel for="active" value="#{ivy.cms.co('/Promote/form/active')}" />
+					</div>
+					<div class="ui-g-8 ui-fluid">
+						<p:selectBooleanCheckbox id="active" value="#{data.selectedEmployee.active}" required="true" validatorMessage="Active is required">
+							<f:validator validatorId="selectOneBooleanCheckBoxValidator"/>
+						</p:selectBooleanCheckbox>
+					</div>
+				</div>
+				<div class="ui-g flex-align-center">
+					<div class="ui-g-4">
+						<p:outputLabel for="startingDate" value="#{ivy.cms.co('/Promote/form/startingDate')}"/>
+					</div>
+					<div class="ui-g-8 ui-fluid">
+						<p:datePicker id="startingDate" value="#{data.selectedEmployee.startingDate}" showIcon="true" required="true" pattern="yyyy-MM-dd"/>
+					</div>
+				</div>
+				<div class="ui-g flex-align-center">
+					<div class="ui-g-4">
+						<p:outputLabel for="team" value="#{ivy.cms.co('/Promote/form/team')}"/>
+					</div>
+					<div class="ui-g-8 ui-fluid">
+						<p:selectOneMenu id="team" value="#{data.selectedEmployee.team}" required="true">
+				            <f:selectItem itemLabel="Please select" itemValue="" />
+              				<f:selectItems value="#{data.teams}" var="t" itemValue="#{t}" itemLabel="#{t}" />
+				        </p:selectOneMenu>
+					</div>
+				</div>
+
+				<br></br>
+			</div>
+			<h:panelGroup>
+				<p:commandButton value="#{ivy.cms.co('/Promote/form/save')}" icon="pi pi-save"
+					actionListener="#{logic.update}" update=":form:theTable detailForm"
+					oncomplete="validateToHide(args, PF('employeeDialog'));"
+					id="dialogSaveButton" />
+				<p:commandButton value="#{ivy.cms.co('/Promote/form/cancel')}" styleClass="ui-button-flat"
+					process="@this" oncomplete="PF('employeeDialog').hide();">
+					<p:resetInput target="detailForm"></p:resetInput>
+				</p:commandButton>
+			</h:panelGroup>
+		</h:form>
+		<script>
+	      function validateToHide(args, dialog) {
+	        // args is a default primefaces parameter
+	        if (!args.validationFailed) {
+	          dialog.hide();
+	        }
+	      }
+	    </script>
+	</p:dialog>
+</h:body>
+
+</html>

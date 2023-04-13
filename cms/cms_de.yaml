@@ -1,0 +1,37 @@
+Promote:
+  CREATE_PROMOTION: Förderung erstellen
+  CRITICAL: Kritisch
+  DONE: Erledigt
+  FEMALE: Weiblich
+  HIGH: Hoch
+  LOW: Niedrig
+  MALE: Männlich
+  MEDIUM: Mittel
+  OTHER: Andere
+  WAITING_APPROVE: Warten genehmigen
+  form:
+    actions: Aktionen
+    active: Aktiv
+    addEmployee: Mitarbeiter hinzufügen
+    age: Alter
+    approve: Genehmigen
+    cancel: Stornieren
+    cancelRequest: Anfrage abbrechen
+    comment: Kommentar
+    creator: Schöpfer
+    dateCreate: Datum erstellen
+    employeeInfoDetail: Details zu Mitarbeiterinformationen
+    feedback: Rückmeldung
+    gender: Geschlecht
+    information: Information
+    manager: Manager
+    managerFeedback: Manager Rückmeldung
+    name: Name
+    priority: Priorität
+    promote: Fördern
+    reject: Ablehnen
+    save: Speichern
+    startingDate: Anfangsdatum
+    submit: Einreichen
+    targetDate: Zieltermin
+    team: Team

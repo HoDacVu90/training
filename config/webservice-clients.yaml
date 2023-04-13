@@ -1,0 +1,14 @@
+WebServiceClients:
+  PetSoapAPI:
+    Id: 18778A253B0FE2AF
+    ServiceClass: my.po.client.PetSoapServiceService
+    WsdlUrl: http://localhost:8081/designer/ws/MyProject/18778A16B27B2BEC?WSDL
+    WsCallLibrary: CXF
+    Features:
+    - ch.ivyteam.ivy.webservice.exec.cxf.feature.HttpBasicAuthenticationFeature
+    Properties:
+      username: admin
+      password: ${decrypt:\u0075\u0070\u00A9\u00EF\u009C\u0075\u0055\u0041\u0008\u0098\u005E\u0085\u00B2\u000D\u00E2\u00E3\u0097\u0089\u007D\u0054\u002D\u0058\u006C\u002D\u00B0\u0087\u00ED\u004E\u00ED\u00B0\u005A\u002D}
+    Endpoints:
+      PetSoapServicePort:
+      - http://localhost:8081/designer/ws/MyProject/18778A16B27B2BEC

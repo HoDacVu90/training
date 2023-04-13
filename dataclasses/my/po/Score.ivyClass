@@ -1,0 +1,10 @@
+Score #class
+my.po #namespace
+id Number #field
+id PERSISTENT #fieldModifier
+name String #field
+name PERSISTENT #fieldModifier
+points Number #field
+points PERSISTENT #fieldModifier
+date java.util.Date #field
+date PERSISTENT #fieldModifier

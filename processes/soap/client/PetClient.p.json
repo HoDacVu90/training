@@ -1,0 +1,63 @@
+{
+  "format" : "10.0.0",
+  "id" : "1876E6BA8EE6BE76",
+  "config" : {
+    "data" : "my.po.PetClientData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "outLink" : "start.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 528, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "WebServiceCall",
+      "name" : "get all pets",
+      "config" : {
+        "clientId" : "18778A253B0FE2AF",
+        "port" : "PetSoapServicePort",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.pets" : "wsResponse"
+          }
+        },
+        "operation" : "call"
+      },
+      "visual" : {
+        "at" : { "x" : 240, "y" : 64 }
+      },
+      "connect" : { "id" : "f6", "to" : "f5" }
+    }, {
+      "id" : "f5",
+      "type" : "Script",
+      "name" : "log",
+      "config" : {
+        "output" : {
+          "code" : [
+            "for (int i = 0; i < in.pets.size(); i++)",
+            "{",
+            "  ivy.log.info(\"\"+ in.pets.get(i));",
+            "}"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 400, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

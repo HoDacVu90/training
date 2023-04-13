@@ -1,0 +1,18 @@
+PromoteData #class
+my.po.Promote #namespace
+promoteData my.po.entities.Promote #field
+promoteData PERSISTENT #fieldModifier
+isEmployee Boolean #field
+isEmployee PERSISTENT #fieldModifier
+selectedEmployee my.po.entities.Employee #field
+selectedEmployee PERSISTENT #fieldModifier
+genders List<String> #field
+genders PERSISTENT #fieldModifier
+teams List<String> #field
+teams PERSISTENT #fieldModifier
+priorities List<String> #field
+priorities PERSISTENT #fieldModifier
+actualStepIndex Number #field
+actualStepIndex PERSISTENT #fieldModifier
+processState List<String> #field
+processState PERSISTENT #fieldModifier

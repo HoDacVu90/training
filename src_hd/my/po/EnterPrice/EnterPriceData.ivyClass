@@ -1,0 +1,4 @@
+EnterPriceData #class
+my.po.EnterPrice #namespace
+data my.po.Data #field
+data PERSISTENT #fieldModifier

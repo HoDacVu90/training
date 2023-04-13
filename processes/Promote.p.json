@@ -1,0 +1,207 @@
+{
+  "format" : "10.0.0",
+  "id" : "186ED55D30642C11",
+  "config" : {
+    "data" : "my.po.PromoteData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "case" : {
+          "name" : "create Promote"
+        },
+        "outLink" : "start.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "name" : "cancel Request",
+      "visual" : {
+        "at" : { "x" : 1280, "y" : 64 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "UserTask",
+      "name" : "Employee",
+      "config" : {
+        "dialogId" : "my.po.Promote",
+        "startMethod" : "start(Boolean,String)",
+        "output" : {
+          "map" : {
+            "out.id" : "result.promoteData.id"
+          }
+        },
+        "task" : {
+          "name" : "Employee task",
+          "description" : "Employee task",
+          "responsible" : {
+            "role" : "CREATOR"
+          },
+          "skipTasklist" : true
+        },
+        "call" : {
+          "params" : [
+            { "name" : "isEmployee", "type" : "Boolean" },
+            { "name" : "id", "type" : "String" }
+          ],
+          "map" : {
+            "param.id" : "in.id"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 384, "y" : 64 }
+      },
+      "boundaries" : [ {
+          "id" : "f21",
+          "type" : "SignalBoundaryEvent",
+          "name" : "cancelRequest",
+          "config" : {
+            "signalCode" : "cancelRequest:<%=ivy.case.getId()%>"
+          },
+          "visual" : {
+            "at" : { "x" : 416, "y" : 106 },
+            "labelOffset" : { "x" : 13, "y" : 33 }
+          },
+          "connect" : { "id" : "f22", "to" : "f1", "via" : [ { "x" : 480, "y" : 106 }, { "x" : 480, "y" : -80 }, { "x" : 1280, "y" : -80 } ] }
+        } ],
+      "connect" : { "id" : "f2", "to" : "f5" }
+    }, {
+      "id" : "f5",
+      "type" : "UserTask",
+      "name" : "Manager",
+      "config" : {
+        "dialogId" : "my.po.Promote",
+        "startMethod" : "start2(String,Boolean)",
+        "output" : {
+          "map" : {
+            "out.id" : "result.promoteData.id",
+            "out.promote.reject" : "result.promoteData.reject",
+            "out.reject" : "result.promoteData.reject"
+          }
+        },
+        "task" : {
+          "name" : "Manager task",
+          "description" : "Manager task",
+          "responsible" : {
+            "role" : "Manager"
+          },
+          "skipTasklist" : true
+        },
+        "call" : {
+          "params" : [
+            { "name" : "id", "type" : "String" },
+            { "name" : "isEmployee", "type" : "Boolean" }
+          ],
+          "map" : {
+            "param.id" : "in.id",
+            "param.isEmployee" : "false"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 672, "y" : 64 }
+      },
+      "connect" : { "id" : "f8", "to" : "f7" }
+    }, {
+      "id" : "f7",
+      "type" : "Alternative",
+      "name" : "Manager approve?",
+      "visual" : {
+        "at" : { "x" : 944, "y" : 64 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f16", "to" : "f17", "via" : [ { "x" : 944, "y" : 280 } ], "label" : {
+            "name" : "No",
+            "segment" : 1.88
+          }, "condition" : "in.reject" },
+        { "id" : "f18", "to" : "f15", "label" : {
+            "name" : "Yes"
+          }, "condition" : "in.reject == false" }
+      ]
+    }, {
+      "id" : "f6",
+      "type" : "SignalStartEvent",
+      "name" : "Signal create log",
+      "config" : {
+        "signalCode" : "my:po:confirm:log"
+      },
+      "visual" : {
+        "at" : { "x" : 88, "y" : 368 },
+        "labelOffset" : { "x" : 13, "y" : 33 }
+      },
+      "connect" : { "id" : "f14", "to" : "f13" }
+    }, {
+      "id" : "f11",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 440, "y" : 368 }
+      }
+    }, {
+      "id" : "f13",
+      "type" : "Script",
+      "name" : "write log",
+      "config" : {
+        "output" : {
+          "code" : "ivy.log.info(\"Manager approve the promotion request\");"
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 216, "y" : 368 }
+      },
+      "connect" : { "id" : "f12", "to" : "f11" }
+    }, {
+      "id" : "f15",
+      "type" : "Script",
+      "name" : "send signal to write log",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import ch.ivyteam.ivy.process.model.value.SignalCode;",
+            "",
+            "SignalCode code = new SignalCode(\"my:po:confirm:log\");",
+            "ivy.wf.signals().send(code);"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 1152, "y" : 64 }
+      },
+      "connect" : { "id" : "f9", "to" : "f1" }
+    }, {
+      "id" : "f17",
+      "type" : "WaitEvent",
+      "config" : {
+        "timeoutConfig" : {
+          "duration" : "'PT3S'",
+          "action" : "continue"
+        },
+        "task" : {
+          "name" : "await call",
+          "description" : "await call",
+          "code" : "ivy.log.info(\"await call\");"
+        },
+        "eventBeanClass" : "ch.ivyteam.ivy.process.intermediateevent.beans.FileIntermediateEventBean",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.id" : "in.id"
+          }
+        },
+        "eventIdConfig" : "in.id"
+      },
+      "visual" : {
+        "at" : { "x" : 784, "y" : 280 }
+      },
+      "connect" : { "id" : "f10", "to" : "f3", "via" : [ { "x" : 384, "y" : 280 } ] }
+    } ]
+}

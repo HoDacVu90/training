@@ -1,0 +1,142 @@
+{
+  "format" : "10.0.0",
+  "id" : "187504CACC02A11A",
+  "config" : {
+    "data" : "my.po.DataDemo"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "outLink" : "start.ivp"
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 208 }
+      },
+      "connect" : { "id" : "f6", "to" : "f4" }
+    }, {
+      "id" : "f1",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 888, "y" : 208 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "TaskSwitchGateway",
+      "config" : {
+        "outLinks" : [ "TaskA.ivp", "TaskB.ivp" ],
+        "tasks" : {
+          "TaskA" : {
+            "name" : "Modify country of address"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 352, "y" : 208 }
+      },
+      "connect" : [
+        { "id" : "f8", "to" : "f2", "condition" : "ivp==\"TaskA.ivp\"" },
+        { "id" : "f9", "to" : "f7", "condition" : "ivp==\"TaskB.ivp\"" }
+      ]
+    }, {
+      "id" : "f10",
+      "type" : "TaskSwitchGateway",
+      "config" : {
+        "outLinks" : [ "TaskA.ivp" ],
+        "tasks" : {
+          "TaskA" : {
+            "name" : "View merged address data"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 632, "y" : 208 }
+      },
+      "connect" : [
+        { "id" : "f15", "to" : "f14", "condition" : "ivp==\"TaskA.ivp\"" }
+      ]
+    }, {
+      "id" : "f14",
+      "type" : "DialogCall",
+      "name" : "View Merge",
+      "config" : {
+        "dialogId" : "my.po.viewMerge",
+        "startMethod" : "start(String)",
+        "call" : {
+          "params" : [
+            { "name" : "id", "type" : "String" }
+          ],
+          "map" : {
+            "param.id" : "in.id"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 760, "y" : 208 }
+      },
+      "connect" : { "id" : "f13", "to" : "f1" }
+    }, {
+      "id" : "f4",
+      "type" : "DialogCall",
+      "name" : "create Address",
+      "config" : {
+        "dialogId" : "my.po.createAddress",
+        "startMethod" : "start()",
+        "output" : {
+          "map" : {
+            "out" : "in",
+            "out.id" : "result.id"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 224, "y" : 208 }
+      },
+      "connect" : { "id" : "f3", "to" : "f5", "var" : "in1" }
+    }, {
+      "id" : "f2",
+      "type" : "DialogCall",
+      "name" : "Modify country",
+      "config" : {
+        "dialogId" : "my.po.modifyCountry",
+        "startMethod" : "start(String)",
+        "call" : {
+          "params" : [
+            { "name" : "id", "type" : "String" }
+          ],
+          "map" : {
+            "param.id" : "in.id"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 496, "y" : 128 }
+      },
+      "connect" : { "id" : "f12", "to" : "f10", "var" : "in2" }
+    }, {
+      "id" : "f7",
+      "type" : "DialogCall",
+      "name" : [
+        "Modify",
+        "Address"
+      ],
+      "config" : {
+        "dialogId" : "my.po.ModifyAddress",
+        "startMethod" : "start(String)",
+        "call" : {
+          "params" : [
+            { "name" : "id", "type" : "String" }
+          ],
+          "map" : {
+            "param.id" : "in.id"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 496, "y" : 280 }
+      },
+      "connect" : { "id" : "f11", "to" : "f10", "var" : "in1" }
+    } ]
+}

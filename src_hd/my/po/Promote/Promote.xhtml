@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:ic="http://ivyteam.ch/jsf/component"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+	<ui:composition template="/layouts/frame-10.xhtml">
+		<ui:define name="title">#{ivy.cms.co('/Promote/form/promote')}</ui:define>
+		<ui:param name="task" value="#{ivy.task}" />
+	    <ui:param name="actualStepIndex" value="#{data.actualStepIndex}" />
+	    <ui:param name="steps" value="#{data.processState}" />
+
+		
+
+		<ui:define name="content">
+			<div style="float: right;">
+					<ic:com.axonivy.portal.components.ProcessChain
+						id="process-chain-circle-horizontal"
+						componentId="component-circle-horizontal" shape="CIRCLE"
+						direction="HORIZONTAL" isShowAllSteps="false" actualStepIndex="#{actualStepIndex}"
+						steps="#{steps}" />
+			</div>
+			<h:form id="form">
+				<p:messages id="mainMessages" />
+
+				<div class="ui-g-12">
+					<p:fieldset legend="#{ivy.cms.co('/Promote/form/information')}" toggleable="true"
+						styleClass="MarTop10 ui-g-12">
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="promoteDataCreatorName" value="#{ivy.cms.co('/Promote/form/creator')}" />
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:inputText id="promoteDataCreatorName" required="true"
+									value="#{data.promoteData.creatorName}" disabled="true"></p:inputText>
+							</div>
+						</div>
+
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="promoteDataCreateDate" value="#{ivy.cms.co('/Promote/form/dateCreate')}" />
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:datePicker id="promoteDataCreateDate"
+									value="#{data.promoteData.createDate}" showIcon="true"
+									required="true" pattern="yyyy-MM-dd" disabled="true" />
+							</div>
+						</div>
+
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="promoteDataTargetDate" value="#{ivy.cms.co('/Promote/form/targetDate')}" />
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:datePicker id="promoteDataTargetDate"
+									value="#{data.promoteData.targetDate}" showIcon="true"
+									required="true" pattern="yyyy-MM-dd" mindate="#{data.promoteData.createDate}"
+									disabled="#{!data.isEmployee}" />
+							</div>
+						</div>
+
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="promoteDataComment" value="#{ivy.cms.co('/Promote/form/comment')}" />
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:inputTextarea id="promoteDataComment" height="100"
+									value="#{data.promoteData.commentVal}" required="true"
+									disabled="#{!data.isEmployee}"></p:inputTextarea>
+							</div>
+						</div>
+						<!-- <h:outputText value="isEmployee: #{data.isEmployee}"
+							id="isEmployee" /> -->
+					</p:fieldset>
+				</div>
+
+				<div class="ui-g-12">
+					<p:fieldset legend="Employees" toggleable="true"
+						styleClass="MarTop10 ui-g-12">
+						<p:dataTable id="theTable" var="emp"
+							value="#{data.promoteData.employees}" rows="10" paginator="true"
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+							rowsPerPageTemplate="5,10,15" style="margin-bottom:40px" >
+							<p:column headerText="#{ivy.cms.co('/Promote/form/name')}" sortBy="#{emp.name}" filterBy="#{emp.name}">
+								<h:outputText value="#{emp.name}" />
+							</p:column>
+
+							<p:column headerText="#{ivy.cms.co('/Promote/form/age')}" sortBy="#{emp.age}" filterBy="#{emp.age}">
+								<h:outputText value="#{emp.age}" />
+							</p:column>
+
+							<p:column headerText="#{ivy.cms.co('/Promote/form/team')}" sortBy="#{emp.team}" filterBy="#{emp.team}">
+								<h:outputText value="#{emp.team}" />
+							</p:column>
+							
+							<p:column headerText="#{ivy.cms.co('/Promote/form/actions')}" rendered="#{data.isEmployee}">
+								<p:commandButton update=":employeeDialog"
+									oncomplete="PF('employeeDialog').show()"
+									value="Edit"
+									id="dialogEditButton" process="@this">
+									<f:setPropertyActionListener value="#{emp}" target="#{data.selectedEmployee}" />
+								</p:commandButton>
+								<p:commandButton update=":deleteEmployeeDialog"
+									oncomplete="PF('deleteEmployeeDialog').show()"
+									value="Delete"
+									id="deleteButton" process="@this">
+									<f:setPropertyActionListener value="#{emp}" target="#{data.selectedEmployee}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>						
+						<p:commandButton update=":employeeDialog"
+							oncomplete="PF('employeeDialog').show()" icon="pi pi-plus"
+							actionListener="#{logic.preAddEmployee}"
+							rendered="#{data.isEmployee}" value="#{ivy.cms.co('/Promote/form/addEmployee')}"
+							id="dialogEditButton" process="@this">
+							
+						</p:commandButton>
+
+					</p:fieldset>
+				</div>
+				
+				<div class="ui-g-12">
+					<p:fieldset legend="#{ivy.cms.co('/Promote/form/managerFeedback')}" toggleable="true"
+						styleClass="MarTop10 ui-g-12" rendered="#{data.promoteData.reject}">
+
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="Feedback1" value="#{ivy.cms.co('/Promote/form/feedback')}" />
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:inputTextarea id="Feedback1" height="100" disabled="true"
+									value="#{data.promoteData.feedBack}" required="true"></p:inputTextarea>
+							</div>
+						</div>
+						
+					</p:fieldset>
+				</div>
+
+				<div class="ui-g-12">
+					<p:fieldset legend="#{ivy.cms.co('/Promote/form/manager')}" toggleable="false"
+						styleClass="MarTop10 ui-g-12" rendered="#{!data.isEmployee}">
+
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="Feedback" value="#{ivy.cms.co('/Promote/form/feedback')}"/>
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:inputTextarea id="Feedback" height="100"
+									value="#{data.promoteData.feedBack}" required="true"></p:inputTextarea>
+							</div>
+						</div>
+						<div class="ui-g flex-align-center">
+							<div class="ui-g-2">
+								<p:outputLabel for="priority" value="#{ivy.cms.co('/Promote/form/priority')}"/>
+							</div>
+							<div class="ui-g-10 ui-fluid">
+								<p:selectOneMenu id="priority" value="#{data.promoteData.priority}" required="true">
+						            <f:selectItem itemLabel="Please select" itemValue="" />
+              						<f:selectItems value="#{data.priorities}" var="t" itemValue="#{t}" itemLabel="#{t}" />
+						        </p:selectOneMenu>
+							</div>
+						</div>
+					</p:fieldset>
+				</div>
+
+				<div class="ui-g-12 MarTop10">
+					<p:commandButton id="proceed" actionListener="#{logic.close}" rendered="#{data.isEmployee}"
+						value="#{ivy.cms.co('/Promote/form/submit')}" update="form" icon="pi pi-check"
+						style="float: right; margin-top: 20px;" />							
+					<p:commandButton id="approve" actionListener="#{logic.close}" rendered="#{!data.isEmployee}"
+						value="#{ivy.cms.co('/Promote/form/approve')}" update="form" icon="pi pi-check"
+						style="float: right; margin-top: 20px;" />
+					<p:commandButton id="reject" actionListener="#{logic.reject}" rendered="#{!data.isEmployee}"
+						value="#{ivy.cms.co('/Promote/form/reject')}" update="form"
+						style="float: right; margin-top: 20px; margin-right: 10px;" />
+					<p:commandButton id="cancel" actionListener="#{logic.cancelRequest}" rendered="#{data.isEmployee}"
+						value="#{ivy.cms.co('/Promote/form/cancelRequest')}" update="form"
+						style="float: right; margin-top: 20px; margin-right: 10px;" />
+				</div>
+			</h:form>
+
+			<ui:include src="EmployeeDialog.xhtml"></ui:include>
+			<ui:include src="DeleteEmployee.xhtml"></ui:include>
+
+		</ui:define>
+		
+	</ui:composition>
+</h:body>
+
+</html>

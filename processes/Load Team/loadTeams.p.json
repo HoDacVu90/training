@@ -1,0 +1,51 @@
+{
+  "format" : "10.0.0",
+  "id" : "1870D46821B6F43C",
+  "kind" : "CALLABLE_SUB",
+  "config" : {
+    "data" : "my.po.SubProcessData"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "CallSubStart",
+      "name" : "call()",
+      "config" : {
+        "callSignature" : "call",
+        "result" : {
+          "params" : [
+            { "name" : "teams", "type" : "java.util.List<String>" }
+          ],
+          "map" : {
+            "result.teams" : "in.teams"
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 64 }
+      },
+      "connect" : { "id" : "f4", "to" : "f3" }
+    }, {
+      "id" : "f1",
+      "type" : "CallSubEnd",
+      "visual" : {
+        "at" : { "x" : 504, "y" : 64 }
+      }
+    }, {
+      "id" : "f3",
+      "type" : "Script",
+      "config" : {
+        "output" : {
+          "code" : [
+            "import my.po.services.PromoteService;",
+            "",
+            "// initial teams",
+            "out.teams = PromoteService.getTeams();"
+          ]
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 304, "y" : 64 }
+      },
+      "connect" : { "id" : "f2", "to" : "f1" }
+    } ]
+}

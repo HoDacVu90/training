@@ -1,0 +1,6 @@
+viewMergeData #class
+my.po.viewMerge #namespace
+address my.po.Address #field
+address PERSISTENT #fieldModifier
+addressId String #field
+addressId PERSISTENT #fieldModifier

@@ -1,0 +1,82 @@
+{
+  "format" : "10.0.0",
+  "id" : "186DF385F6A6CEA8",
+  "config" : {
+    "data" : "my.po.Data"
+  },
+  "elements" : [ {
+      "id" : "f0",
+      "type" : "RequestStart",
+      "name" : "start.ivp",
+      "config" : {
+        "callSignature" : "start",
+        "task" : {
+          "responsible" : {
+            "role" : "SYSTEM"
+          }
+        },
+        "outLink" : "start.ivp",
+        "triggerEnabled" : true
+      },
+      "visual" : {
+        "at" : { "x" : 96, "y" : 104 }
+      },
+      "connect" : { "id" : "f3", "to" : "f1" }
+    }, {
+      "id" : "f1",
+      "type" : "DialogCall",
+      "name" : "Enter price",
+      "config" : {
+        "dialogId" : "my.po.EnterPrice",
+        "startMethod" : "start(my.po.Data)",
+        "output" : {
+          "map" : {
+            "out" : [
+              "in",
+              "result.data",
+              "result.data"
+            ]
+          }
+        },
+        "call" : {
+          "params" : [
+            { "name" : "data", "type" : "my.po.Data" }
+          ],
+          "map" : {
+            "param.data" : [
+              "in",
+              "in"
+            ]
+          }
+        }
+      },
+      "visual" : {
+        "at" : { "x" : 328, "y" : 112 }
+      },
+      "connect" : { "id" : "f7", "to" : "f6" }
+    }, {
+      "id" : "f2",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 712, "y" : 112 }
+      }
+    }, {
+      "id" : "f5",
+      "type" : "TaskEnd",
+      "visual" : {
+        "at" : { "x" : 712, "y" : 224 }
+      }
+    }, {
+      "id" : "f6",
+      "type" : "Alternative",
+      "name" : "Price higher than 100",
+      "visual" : {
+        "at" : { "x" : 552, "y" : 112 },
+        "labelOffset" : { "x" : 14, "y" : 34 }
+      },
+      "connect" : [
+        { "id" : "f4", "to" : "f2", "condition" : "in.price > 100" },
+        { "id" : "f8", "to" : "f5" }
+      ]
+    } ]
+}

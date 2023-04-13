@@ -1,0 +1,6 @@
+ModifyAddressData #class
+my.po.ModifyAddress #namespace
+address my.po.Address #field
+address PERSISTENT #fieldModifier
+addressId String #field
+addressId PERSISTENT #fieldModifier

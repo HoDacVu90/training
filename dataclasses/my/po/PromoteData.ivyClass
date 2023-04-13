@@ -1,0 +1,12 @@
+PromoteData #class
+my.po #namespace
+employees java.util.List<my.po.entities.Employee> #field
+employees PERSISTENT #fieldModifier
+id String #field
+id PERSISTENT #fieldModifier
+reject Boolean #field
+reject PERSISTENT #fieldModifier
+caseId Long #field
+caseId PERSISTENT #fieldModifier
+promote my.po.entities.Promote #field
+promote PERSISTENT #fieldModifier

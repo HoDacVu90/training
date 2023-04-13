@@ -1,0 +1,10 @@
+DataTableData #class
+my.po.DataTable #namespace
+scores List<my.po.Score> #field
+scores PERSISTENT #fieldModifier
+names List<String> #field
+names PERSISTENT #fieldModifier
+selectedScore my.po.Score #field
+selectedScore PERSISTENT #fieldModifier
+showDialog Boolean #field
+showDialog PERSISTENT #fieldModifier
